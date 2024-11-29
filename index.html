@@ -11,21 +11,21 @@
             console.log(symbolToAdd)
             console.log(targetClass)
             if ((oldValue === '' || oldValue.trim() === '') && symbolToAdd != '-' && targetClass != "digit") {
-         //   console.log(1)
+       
             return oldValue;  
            }
         
-            if (symbolToAdd === '.' && oldValue.includes('.')) {
-                console.log(3)
-                oldValue = oldValue.replace('.', ''); 
-            }
+           if (symbolToAdd === '.' && oldValue.lastIndexOf('.') > oldValue.lastIndexOf('*') && oldValue.lastIndexOf('.') > oldValue.lastIndexOf('+') && oldValue.lastIndexOf('.') > oldValue.lastIndexOf('-') && oldValue.lastIndexOf('.') > oldValue.lastIndexOf('/')) {
+    // Don't add the decimal if it's within the same operand
+    return oldValue;
+}
 
             
            let inputField = document.getElementById('display'); 
             inputField.scrollLeft = inputField.scrollWidth; 
             console.log(inputField.scrollLeft)
 
-        if (characterList.includes(lastChr)) { 
+        if (characterList.includes(lastChr) && targetClass != "digit") { 
             return oldValue
            
         } else { 
@@ -33,7 +33,12 @@
            
         }
         }
-        </script>
+    
+    function customEvaluate(displayText) { 
+        return eval(displayText);
+    }
+    
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,7 +79,7 @@
          <div>  
             <input type="button" value = "00" onclick="display.value = addCharacter(display.value, event.target)" class="digit">
              <input type="button" value = "0" onclick="display.value = addCharacter(display.value, event.target)" class="digit"> 
-             <input type="button" value = "=" onclick="display.value = eval(display.value)" class="equal">  
+             <input type="button" value = "=" onclick="display.value = customEvaluate(display.value)" class="equal">  
             
          </div>
     </form>
